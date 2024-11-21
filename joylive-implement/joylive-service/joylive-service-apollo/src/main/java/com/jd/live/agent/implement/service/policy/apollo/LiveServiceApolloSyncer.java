@@ -39,7 +39,7 @@ import java.util.concurrent.CompletableFuture;
  * LiveServiceNacosSyncer is responsible for synchronizing live service policies from apollo.
  */
 @Injectable
-@Extension("LiveServiceNacosSyncer")
+@Extension("LiveServiceApolloSyncer")
 @ConditionalOnProperty(name = SyncConfig.SYNC_LIVE_SPACE_TYPE, value = "apollo")
 @ConditionalOnProperty(name = SyncConfig.SYNC_LIVE_SPACE_SERVICE, matchIfMissing = true)
 @ConditionalOnProperty(name = GovernanceConfig.CONFIG_LIVE_ENABLED, matchIfMissing = true)

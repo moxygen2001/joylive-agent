@@ -42,9 +42,8 @@ import static com.jd.live.agent.implement.service.policy.apollo.LiveSpaceApolloS
  * LiveSpaceSyncer is responsible for synchronizing live spaces from apollo.
  */
 @Injectable
-@Extension("LiveSpaceNacosSyncer")
+@Extension("LiveSpaceApolloSyncer")
 @ConditionalOnProperty(name = SyncConfig.SYNC_LIVE_SPACE_TYPE, value = "apollo")
-@ConditionalOnProperty(name = SyncConfig.SYNC_LIVE_SPACE_SERVICE, matchIfMissing = true)
 @ConditionalOnProperty(value = GovernanceConfig.CONFIG_LIVE_ENABLED, matchIfMissing = true)
 public class LiveSpaceApolloSyncer extends AbstractLiveSpaceSyncer<ApolloLiveSpaceKey, ApolloLiveSpaceKey> {
 

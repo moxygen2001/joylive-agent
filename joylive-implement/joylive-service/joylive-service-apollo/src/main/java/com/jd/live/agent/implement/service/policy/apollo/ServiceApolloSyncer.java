@@ -39,7 +39,7 @@ import java.util.concurrent.CompletableFuture;
  * ServiceNacosSyncer is responsible for synchronizing live service policies from nacos.
  */
 @Injectable
-@Extension("ServiceNacosSyncer")
+@Extension("ServiceApolloSyncer")
 @ConditionalOnProperty(name = SyncConfig.SYNC_MICROSERVICE_TYPE, value = "apollo")
 @ConditionalOnProperty(name = GovernanceConfig.CONFIG_FLOW_CONTROL_ENABLED, matchIfMissing = true)
 public class ServiceApolloSyncer extends AbstractServiceSyncer<ApolloServiceKey> {
@@ -50,7 +50,7 @@ public class ServiceApolloSyncer extends AbstractServiceSyncer<ApolloServiceKey>
     private ApolloClient client;
 
     public ServiceApolloSyncer() {
-        name = "service-nacos-syncer";
+        name = "service-apollo-syncer";
     }
 
     @Override

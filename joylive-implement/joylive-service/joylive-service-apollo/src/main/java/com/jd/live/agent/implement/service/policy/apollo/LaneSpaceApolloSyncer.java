@@ -42,7 +42,7 @@ import static com.jd.live.agent.implement.service.policy.apollo.LaneSpaceApolloS
  * LaneSpaceNacosSyncer is responsible for synchronizing lane spaces policies from apollo.
  */
 @Injectable
-@Extension("LaneSpaceNacosSyncer")
+@Extension("LaneSpaceApolloSyncer")
 @ConditionalOnProperty(name = SyncConfig.SYNC_LANE_SPACE_TYPE, value = "apollo")
 @ConditionalOnProperty(name = GovernanceConfig.CONFIG_LANE_ENABLED, matchIfMissing = true)
 public class LaneSpaceApolloSyncer extends AbstractLaneSpaceSyncer<ApolloLaneSpaceKey> {

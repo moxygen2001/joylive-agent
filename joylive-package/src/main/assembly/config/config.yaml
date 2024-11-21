@@ -78,11 +78,20 @@ agent:
       nacos:
         username: ${CONFIG_NACOS_USERNAME:nacos}
         password: ${CONFIG_NACOS_PASSWORD:nacos}
-        namespace: ${CONFIG_NACOS_NAMESPACE:public}
+        namespace: ${CONFIG_NACOS_NAMESPACE:live}
         liveSpaceGroup: ${CONFIG_NACOS_GROUP_LIVE_SPACE:DEFAULT_GROUP}
         liveSpacesKey: ${CONFIG_NACOS_KEY_LIVE_SPACES:govern-liveSpaces}
         liveSpaceKeyTemplate: ${CONFIG_NACOS_KEY_LIVE_SPACE_TEMPLATE:govern-liveSpace-${id}}
         liveServiceTemplate: ${CONFIG_NACOS_KEY_LIVE_SERVICE_TEMPLATE:govern-liveService-${name}}
+      # for apollo
+      apollo:
+        namespace: ${CONFIG_APOLLO_NAMESPACE:live}
+        appId: ${CONFIG_APOLLO_APPID:live}
+        addressType: ${CONFIG_APOLLO_ADDRESS_TYPE:META_SERVICE}
+        environment: ${CONFIG_APOLLO_ENVIRONMENT:}
+        liveSpacesKey: ${CONFIG_APOLLO_KEY_LIVE_SPACES:govern-liveSpaces}
+        liveSpaceKeyTemplate: ${CONFIG_APOLLO_KEY_LIVE_SPACE_TEMPLATE:govern-liveSpace-${id}}
+        liveServiceTemplate: ${CONFIG_APOLLO_KEY_LIVE_SERVICE_TEMPLATE:govern-liveService-${name}}
     laneSpace:
       type: file # [file,jmsf,nacos]
       url: ${CONFIG_LANE_SPACE_API_URL:http:http://api.jmsf.local:8080/v1}
@@ -94,10 +103,18 @@ agent:
       nacos:
         username: ${CONFIG_NACOS_USERNAME:nacos}
         password: ${CONFIG_NACOS_PASSWORD:nacos}
-        namespace: ${CONFIG_NACOS_NAMESPACE:public}
+        namespace: ${CONFIG_NACOS_NAMESPACE:live}
         laneSpaceGroup: ${CONFIG_NACOS_GROUP_LANE_SPACE:DEFAULT_GROUP}
         laneSpacesKey: ${CONFIG_NACOS_KEY_LANE_SPACES:govern-laneSpaces}
         laneSpaceKeyTemplate: ${CONFIG_NACOS_KEY_LANE_SPACE_TEMPLATE:govern-laneSpace-${id}}
+      # for apollo
+      apollo:
+        namespace: ${CONFIG_APOLLO_NAMESPACE:live}
+        appId: ${CONFIG_APOLLO_APPID:live}
+        addressType: ${CONFIG_APOLLO_ADDRESS_TYPE:META_SERVICE}
+        environment: ${CONFIG_APOLLO_ENVIRONMENT:}
+        laneSpacesKey: ${CONFIG_APOLLO_KEY_LANE_SPACES:govern-laneSpaces}
+        laneSpaceKeyTemplate: ${CONFIG_APOLLO_KEY_LANE_SPACE_TEMPLATE:govern-laneSpace-${id}}
     microservice:
       type: ${CONFIG_SERVICE_API_TYPE:file} # [file,jmsf,nacos]
       url: ${CONFIG_SERVICE_API_URL:http://api.jmsf.local:8080/v1}
@@ -112,9 +129,16 @@ agent:
       nacos:
         username: ${CONFIG_NACOS_USERNAME:nacos}
         password: ${CONFIG_NACOS_PASSWORD:nacos}
-        namespace: ${CONFIG_NACOS_NAMESPACE:public}
+        namespace: ${CONFIG_NACOS_NAMESPACE:live}
         serviceGroup: ${CONFIG_NACOS_GROUP_SERVICE:DEFAULT_GROUP}
         serviceKeyTemplate: ${CONFIG_NACOS_KEY_SERVICE_TEMPLATE:govern-service-${name}}
+      # for apollo
+      apollo:
+        namespace: ${CONFIG_APOLLO_NAMESPACE:live}
+        appId: ${CONFIG_APOLLO_APPID:live}
+        addressType: ${CONFIG_APOLLO_ADDRESS_TYPE:META_SERVICE}
+        environment: ${CONFIG_APOLLO_ENVIRONMENT:}
+        serviceKeyTemplate: ${CONFIG_APOLLO_KEY_SERVICE_TEMPLATE:govern-service-${name}}
   watchdog:
     enabled: true
     delay: 5000
