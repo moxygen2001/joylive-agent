@@ -1,0 +1,4 @@
+com.jd.live.agent.implement.service.policy.apollo.LaneSpaceApolloSyncer
+com.jd.live.agent.implement.service.policy.apollo.LiveSpaceApolloSyncer
+com.jd.live.agent.implement.service.policy.apollo.LiveServiceApolloSyncer
+com.jd.live.agent.implement.service.policy.apollo.ServiceApolloSyncer
