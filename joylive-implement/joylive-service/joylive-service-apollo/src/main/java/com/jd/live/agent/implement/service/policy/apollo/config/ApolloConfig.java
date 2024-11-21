@@ -29,11 +29,6 @@ import static com.jd.live.agent.core.config.SyncConfig.CONFIG_PREFIX;
 public class ApolloConfig {
 
     /**
-     * apollo namespace
-     */
-    private String namespace;
-
-    /**
      * apollo app.id
      */
     private String appId;
@@ -48,16 +43,16 @@ public class ApolloConfig {
      */
     private String environment;
 
-    private String serviceKeyTemplate = CONFIG_PREFIX + "-service-${name}";
+    private String serviceNamespaceTemplate = CONFIG_PREFIX + "-service-${name}";
 
-    private String laneSpacesKey = CONFIG_PREFIX + "-laneSpaces";
+    private String laneSpacesNamespace = CONFIG_PREFIX + "-laneSpaces";
 
-    private String laneSpaceKeyTemplate = CONFIG_PREFIX + "-laneSpace-${id}";
+    private String laneSpaceNamespaceTemplate = CONFIG_PREFIX + "-laneSpace-${id}";
 
-    private String liveSpacesKey = CONFIG_PREFIX + "-liveSpaces";
+    private String liveSpacesNamespace = CONFIG_PREFIX + "-liveSpaces";
 
-    private String liveSpaceKeyTemplate = CONFIG_PREFIX + "-liveSpace-${id}";
+    private String liveSpaceNamespaceTemplate = CONFIG_PREFIX + "-liveSpace-${id}";
 
-    private String liveServiceTemplate = CONFIG_PREFIX + "-liveService-${name}";
+    private String liveServiceNamespaceTemplate = CONFIG_PREFIX + "-liveService-${name}";
 
 }

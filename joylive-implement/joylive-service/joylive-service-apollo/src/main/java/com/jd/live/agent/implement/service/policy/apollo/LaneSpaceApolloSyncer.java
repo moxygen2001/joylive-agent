@@ -75,20 +75,20 @@ public class LaneSpaceApolloSyncer extends AbstractLaneSpaceSyncer<ApolloLaneSpa
 
     @Override
     protected Template createTemplate() {
-        return new Template(syncConfig.getApollo().getLaneSpaceKeyTemplate());
+        return new Template(syncConfig.getApollo().getLaneSpaceNamespaceTemplate());
     }
 
     @Override
     protected ApolloLaneSpaceKey createSpaceListKey() {
-        return new ApolloLaneSpaceKey(null, syncConfig.getApollo().getLaneSpacesKey());
+        return new ApolloLaneSpaceKey(null, syncConfig.getApollo().getLaneSpacesNamespace());
     }
 
     @Override
     protected ApolloLaneSpaceKey createSpaceKey(String spaceId) {
         Map<String, Object> context = new HashMap<>();
         context.put("id", spaceId);
-        String key = template.evaluate(context);
-        return new ApolloLaneSpaceKey(spaceId, key);
+        String namespace = template.evaluate(context);
+        return new ApolloLaneSpaceKey(spaceId, namespace);
     }
 
     @Override
@@ -104,11 +104,11 @@ public class LaneSpaceApolloSyncer extends AbstractLaneSpaceSyncer<ApolloLaneSpa
     @Getter
     protected static class ApolloLaneSpaceKey extends LaneSpaceKey implements ApolloSyncKey {
 
-        private final String key;
+        private final String namespace;
 
-        public ApolloLaneSpaceKey(String id, String key) {
+        public ApolloLaneSpaceKey(String id, String namespace) {
             super(id);
-            this.key = key;
+            this.namespace = namespace;
         }
     }
 

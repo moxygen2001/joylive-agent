@@ -23,10 +23,10 @@ import com.jd.live.agent.governance.service.sync.SyncKey;
 public interface ApolloSyncKey extends SyncKey {
 
     /**
-     * Gets the key.
+     * Gets the namespace.
      *
-     * @return The key.
+     * @return The namespace.
      */
-    String getKey();
+    String getNamespace();
 
 }

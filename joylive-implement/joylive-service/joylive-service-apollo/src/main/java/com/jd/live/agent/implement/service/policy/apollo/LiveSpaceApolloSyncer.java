@@ -75,20 +75,20 @@ public class LiveSpaceApolloSyncer extends AbstractLiveSpaceSyncer<ApolloLiveSpa
 
     @Override
     protected Template createTemplate() {
-        return new Template(syncConfig.getApollo().getLiveSpaceKeyTemplate());
+        return new Template(syncConfig.getApollo().getLiveSpaceNamespaceTemplate());
     }
 
     @Override
     protected ApolloLiveSpaceKey createSpaceListKey() {
-        return new ApolloLiveSpaceKey(null, syncConfig.getApollo().getLiveSpacesKey());
+        return new ApolloLiveSpaceKey(null, syncConfig.getApollo().getLiveSpacesNamespace());
     }
 
     @Override
     protected ApolloLiveSpaceKey createSpaceKey(String spaceId) {
         Map<String, Object> context = new HashMap<>();
         context.put("id", spaceId);
-        String key = template.evaluate(context);
-        return new ApolloLiveSpaceKey(spaceId, key);
+        String namespace = template.evaluate(context);
+        return new ApolloLiveSpaceKey(spaceId, namespace);
     }
 
     @Override
@@ -104,11 +104,11 @@ public class LiveSpaceApolloSyncer extends AbstractLiveSpaceSyncer<ApolloLiveSpa
     @Getter
     protected static class ApolloLiveSpaceKey extends LiveSpaceKey implements ApolloSyncKey {
 
-        private final String key;
+        private final String namespace;
 
-        public ApolloLiveSpaceKey(String id, String key) {
+        public ApolloLiveSpaceKey(String id, String namespace) {
             super(id);
-            this.key = key;
+            this.namespace = namespace;
         }
     }
 }

@@ -15,21 +15,18 @@
  */
 package com.jd.live.agent.implement.service.policy.apollo.client;
 
-import com.ctrip.framework.apollo.Config;
-import com.ctrip.framework.apollo.ConfigChangeListener;
+import com.ctrip.framework.apollo.ConfigFile;
+import com.ctrip.framework.apollo.ConfigFileChangeListener;
 import com.ctrip.framework.apollo.ConfigService;
+import com.ctrip.framework.apollo.core.enums.ConfigFileFormat;
 import com.ctrip.framework.apollo.enums.PropertyChangeType;
-import com.ctrip.framework.apollo.model.ConfigChange;
-import com.ctrip.framework.apollo.model.ConfigChangeEvent;
+import com.ctrip.framework.apollo.model.ConfigFileChangeEvent;
 import com.jd.live.agent.governance.service.sync.SyncResponse;
 import com.jd.live.agent.governance.service.sync.SyncStatus;
 import com.jd.live.agent.governance.service.sync.Syncer;
 import com.jd.live.agent.implement.service.policy.apollo.ApolloSyncKey;
 import com.jd.live.agent.implement.service.policy.apollo.config.ApolloSyncConfig;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -39,44 +36,35 @@ public class ApolloClient {
 
     private final ApolloSyncConfig syncConfig;
 
-    private final String namespace;
-
-    private final Config config;
-
     public ApolloClient(ApolloSyncConfig syncConfig) {
-        this.namespace = syncConfig.getApollo().getNamespace();
         this.syncConfig = syncConfig;
-        this.config = ConfigService.getConfig(namespace);
     }
 
-    public void subscribe(String key, ConfigChangeListener listener) {
-        String value = config.getProperty(key, null);
-        Map<String, ConfigChange> changes = new HashMap<>();
-        changes.put(key, new ConfigChange(namespace, key, null, value, PropertyChangeType.MODIFIED));
-        listener.onChange(new ConfigChangeEvent(namespace, changes));
-        config.addChangeListener(listener, Collections.singleton(key));
+    public void subscribe(String namespace, ConfigFileChangeListener listener) {
+        ConfigFile config = ConfigService.getConfigFile(namespace, ConfigFileFormat.TXT);
+        listener.onChange(new ConfigFileChangeEvent(namespace, null, config.getContent(), PropertyChangeType.ADDED));
+        config.addChangeListener(listener);
     }
 
-    public void unsubscribe(ConfigChangeListener listener) {
+    public void unsubscribe(String namespace, ConfigFileChangeListener listener) {
+        ConfigFile config = ConfigService.getConfigFile(namespace, ConfigFileFormat.TXT);
         config.removeChangeListener(listener);
     }
 
     public <K extends ApolloSyncKey, T> Syncer<K, T> createSyncer(Function<String, SyncResponse<T>> parser) {
         return subscription -> {
             try {
-                subscribe(subscription.getKey().getKey(), changeEvent -> changeEvent.changedKeys().forEach(key -> {
-                    ConfigChange change = changeEvent.getChange(key);
-                    switch (change.getChangeType()) {
+                subscribe(subscription.getKey().getNamespace(), event -> {
+                    switch (event.getChangeType()) {
                         case DELETED:
                             subscription.onUpdate(new SyncResponse<>(SyncStatus.NOT_FOUND, null));
                             break;
-                        case ADDED:
                         case MODIFIED:
-                            subscription.onUpdate(parser.apply(change.getNewValue()));
+                        case ADDED:
+                            subscription.onUpdate(parser.apply(event.getNewValue()));
                             break;
                     }
-
-                }));
+                });
             } catch (Throwable e) {
                 subscription.onUpdate(new SyncResponse<>(e));
             }

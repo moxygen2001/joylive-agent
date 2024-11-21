@@ -72,7 +72,7 @@ public class ServiceApolloSyncer extends AbstractServiceSyncer<ApolloServiceKey>
 
     @Override
     protected Template createTemplate() {
-        return new Template(syncConfig.getApollo().getServiceKeyTemplate());
+        return new Template(syncConfig.getApollo().getServiceNamespaceTemplate());
     }
 
     @Override
@@ -80,8 +80,8 @@ public class ServiceApolloSyncer extends AbstractServiceSyncer<ApolloServiceKey>
         Map<String, Object> context = new HashMap<>();
         context.put("name", subscriber.getName());
         context.put("space", application.getService().getNamespace());
-        String key = template.evaluate(context);
-        return new ApolloServiceKey(subscriber, key);
+        String namespace = template.evaluate(context);
+        return new ApolloServiceKey(subscriber, namespace);
     }
 
     @Override

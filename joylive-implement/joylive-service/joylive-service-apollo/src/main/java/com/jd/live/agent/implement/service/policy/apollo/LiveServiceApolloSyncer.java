@@ -73,7 +73,7 @@ public class LiveServiceApolloSyncer extends AbstractServiceSyncer<ApolloService
 
     @Override
     protected Template createTemplate() {
-        return new Template(syncConfig.getApollo().getLiveServiceTemplate());
+        return new Template(syncConfig.getApollo().getLiveServiceNamespaceTemplate());
     }
 
     @Override
@@ -81,8 +81,8 @@ public class LiveServiceApolloSyncer extends AbstractServiceSyncer<ApolloService
         Map<String, Object> context = new HashMap<>();
         context.put("name", subscriber.getName());
         context.put("space", application.getService().getNamespace());
-        String key = template.evaluate(context);
-        return new ApolloServiceKey(subscriber, key);
+        String namespace = template.evaluate(context);
+        return new ApolloServiceKey(subscriber, namespace);
     }
 
     @Override

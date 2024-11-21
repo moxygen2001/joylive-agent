@@ -22,10 +22,10 @@ import lombok.Getter;
 @Getter
 public class ApolloServiceKey extends ServiceKey implements ApolloSyncKey {
 
-    private final String key;
+    private final String namespace;
 
-    public ApolloServiceKey(PolicySubscriber subscriber, String key) {
+    public ApolloServiceKey(PolicySubscriber subscriber, String namespace) {
         super(subscriber);
-        this.key = key;
+        this.namespace = namespace;
     }
 }
